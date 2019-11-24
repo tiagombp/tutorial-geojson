@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+<h1>See results in JavaScript console</h1>
+
+<script>
+
+    d3.json('../geo/world.geojson')
+      .then(function(data) {
+        
+        const pais = data.features[9];
+        
+        console.log(data.features[9].id);   // features array
+        
+        //d3.select("h1").text("título"); // 0
+        
+        //d3.select("h1").text(pais); //1
+        
+        //d3.select("h1").text("pais") // 1-a mostrar o q aconteceria
+        
+        d3.select("h1")
+          .text(pais.properties.name + " " + pais.id); // 2
+        
+        d3.select("body")
+            .append("ol")
+          .selectAll("li")
+          .data(pais.geometry.coordinates[1][0])
+          .enter()
+          .append("li")
+          .text(d => d);
+        
+        
+    });
+
+</script>
+
+</body>
+</html>
